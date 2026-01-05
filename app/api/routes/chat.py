@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException
 
 from app.core.config import settings
-from app.models.schemas import ChatRequest, ChatResponse, SourceDoc
+from app.models.schemas import ChatRequest, ChatResponse, SourceChunk
 
 from app.clients.openai_client import get_openai_client
 from app.clients.supabase_client import get_supabase_client
@@ -42,7 +42,7 @@ def chat(req: ChatRequest):
         )
 
         sources = [
-            SourceDoc(
+            SourceChunk(
                 content_preview=(d.page_content or "")[:500],
                 metadata=d.metadata or {},
             )
